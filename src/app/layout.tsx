@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import {ThemeProvider} from "@/components/theme-provider";
+
 import "./globals.css";
+import {ModeToggle} from "@/components/ui/toggle-mode";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +20,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <nav>
-        <h1>Recipes</h1>
-          {children}
-      </nav>
+      {/* attribute="class" - means theme will be toggled via classes */}
+      <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+      >
+        <nav className="flex justify-between">
+            <h1>Recipes</h1>
+            <ModeToggle />
+        </nav>
+        {children}
+      </ThemeProvider>
       </body>
     </html>
   );
